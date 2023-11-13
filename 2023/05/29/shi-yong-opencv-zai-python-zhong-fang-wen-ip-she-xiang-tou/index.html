@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="代码如下。打开IP摄像头，获得局域网地址，使用VideoCapture方法读取。 12345678910111213141516import cv2 as cvurl &#x3D; &#x27;http:&#x2F;&#x2F;admin:psw@ip&#x2F;video&#x27;  # 局域网地址cap &#x3D; cv.VideoCapture(url)  # 获取视频流cv.namedWindow(&quot;frame&quot;,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用OpenCV在Python中访问IP摄像头">
+<meta property="og:url" content="http://example.com/2023/05/29/shi-yong-opencv-zai-python-zhong-fang-wen-ip-she-xiang-tou/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="代码如下。打开IP摄像头，获得局域网地址，使用VideoCapture方法读取。 12345678910111213141516import cv2 as cvurl &#x3D; &#x27;http:&#x2F;&#x2F;admin:psw@ip&#x2F;video&#x27;  # 局域网地址cap &#x3D; cv.VideoCapture(url)  # 获取视频流cv.namedWindow(&quot;frame&quot;,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-05-29T03:13:54.000Z">
+<meta property="article:modified_time" content="2023-05-30T01:42:36.037Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="OpenCV">
+<meta property="article:tag" content="项目_OpenCV">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/05/29/shi-yong-opencv-zai-python-zhong-fang-wen-ip-she-xiang-tou/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/05/29/shi-yong-opencv-zai-python-zhong-fang-wen-ip-she-xiang-tou/","path":"2023/05/29/shi-yong-opencv-zai-python-zhong-fang-wen-ip-she-xiang-tou/","title":"使用OpenCV在Python中访问IP摄像头"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用OpenCV在Python中访问IP摄像头 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">snow</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/05/29/shi-yong-opencv-zai-python-zhong-fang-wen-ip-she-xiang-tou/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="snow">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用OpenCV在Python中访问IP摄像头 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用OpenCV在Python中访问IP摄像头
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+
+      <time title="Created: 2023-05-29 11:13:54" itemprop="dateCreated datePublished" datetime="2023-05-29T11:13:54+08:00">2023-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">Edited on</span>
+      <time title="Modified: 2023-05-30 09:42:36" itemprop="dateModified" datetime="2023-05-30T09:42:36+08:00">2023-05-30</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>代码如下。打开IP摄像头，获得局域网地址，使用<code>VideoCapture</code>方法读取。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> cv2 <span class="keyword">as</span> cv</span><br><span class="line">url = <span class="string">&#x27;http://admin:psw@ip/video&#x27;</span>  <span class="comment"># 局域网地址</span></span><br><span class="line">cap = cv.VideoCapture(url)  <span class="comment"># 获取视频流</span></span><br><span class="line">cv.namedWindow(<span class="string">&quot;frame&quot;</span>, <span class="number">0</span>)  <span class="comment"># 0为可调大小，注意：窗口名必须imshow里面的一窗口名一致</span></span><br><span class="line">cv.resizeWindow(<span class="string">&quot;frame&quot;</span>, <span class="number">430</span>, <span class="number">270</span>)  <span class="comment"># 设置长和宽</span></span><br><span class="line"><span class="keyword">while</span> cap.isOpened():</span><br><span class="line">    ret, frame = cap.read()  <span class="comment"># 逐帧读取 返回第一个参数表示是否返回读取成功 第二个表示读取的帧</span></span><br><span class="line">    <span class="keyword">if</span> ret:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;success capture&quot;</span>)</span><br><span class="line">    <span class="comment"># 调整窗口大小</span></span><br><span class="line">    cv.namedWindow(<span class="string">&quot;frame&quot;</span>, <span class="number">0</span>)  <span class="comment"># 0可调大小，注意：窗口名必须imshow里面的一窗口名一致</span></span><br><span class="line">    cv.imshow(<span class="string">&#x27;frame&#x27;</span>, frame)  <span class="comment"># 显示窗口</span></span><br><span class="line">    <span class="keyword">if</span> cv.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="built_in">ord</span>(<span class="string">&#x27;q&#x27;</span>):  <span class="comment"># 键盘输入q退出</span></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">cap.release()  <span class="comment"># 释放</span></span><br><span class="line">cv.destroyAllWindows()  <span class="comment"># 关闭所有窗口</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>在64位计算机中，<code>cv.waitKey()</code>返回的是一个64位的整型数，在使用时需要将其与0xFF按位与运算，以获取低8位的结果。这是因为低8位表示键盘输入的ASCII码值，而高56位通常都是0，与其进行按位与运算后会忽略高位的数值，只保留低8位的值。</p>
+<p>如果不将返回值与0xFF进行按位与运算，则在某些情况下可能会导致程序无法正常退出或者产生其他异常。因此，建议在64位计算机上使用<code>cv.waitKey(0) &amp; 0xFF</code>来获取键盘输入的ASCII码值。</p>
+</li>
+<li><p>在使用<code>cv2.VideoCapture</code>类读取视频流或者本地视频文件时，需要调用<code>release()</code>方法释放资源。其主要作用是停止捕获视频帧，并且将视频流占用的内存等资源释放掉，以便其他应用程序能够访问它们。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+              <a href="/tags/%E9%A1%B9%E7%9B%AE-OpenCV/" rel="tag"># 项目_OpenCV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/05/23/test/" rel="prev" title="Test">
+                  <i class="fa fa-angle-left"></i> Test
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/05/29/opencv-python-jian-jie/" rel="next" title="OpenCV-Python简介">
+                  OpenCV-Python简介 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">snow</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

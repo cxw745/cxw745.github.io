@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="学习使用各种低通滤镜模糊图像 学习将定制的滤镜应用于图像（2D卷积）  1234567891011121314151617181920212223def img_filter():    # 滤波原理    img &#x3D; cv.imread(cat_img)    kernel &#x3D; np.ones((5, 5), np.float32) &#x2F; 25    dst &#x3D; cv.filter2D(img,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像平滑">
+<meta property="og:url" content="http://example.com/2023/06/07/tu-xiang-ping-hua/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="学习使用各种低通滤镜模糊图像 学习将定制的滤镜应用于图像（2D卷积）  1234567891011121314151617181920212223def img_filter():    # 滤波原理    img &#x3D; cv.imread(cat_img)    kernel &#x3D; np.ones((5, 5), np.float32) &#x2F; 25    dst &#x3D; cv.filter2D(img,">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-07T01:54:24.000Z">
+<meta property="article:modified_time" content="2023-06-07T01:54:40.010Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="笔记_OpenCV">
+<meta property="article:tag" content="OpenCV">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/06/07/tu-xiang-ping-hua/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/06/07/tu-xiang-ping-hua/","path":"2023/06/07/tu-xiang-ping-hua/","title":"图像平滑"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>图像平滑 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">snow</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/07/tu-xiang-ping-hua/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="snow">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="图像平滑 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图像平滑
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-06-07 09:54:24 / Modified: 09:54:40" itemprop="dateCreated datePublished" datetime="2023-06-07T09:54:24+08:00">2023-06-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ul>
+<li>学习使用各种低通滤镜模糊图像</li>
+<li>学习将定制的滤镜应用于图像（2D卷积）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">img_filter</span>():</span><br><span class="line">    <span class="comment"># 滤波原理</span></span><br><span class="line">    img = cv.imread(cat_img)</span><br><span class="line">    kernel = np.ones((<span class="number">5</span>, <span class="number">5</span>), np.float32) / <span class="number">25</span></span><br><span class="line">    dst = cv.filter2D(img, -<span class="number">1</span>, kernel)  <span class="comment"># 做2d卷积</span></span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">121</span>), plt.imshow(img), plt.title(<span class="string">&#x27;Original&#x27;</span>)</span><br><span class="line">    plt.xticks([]), plt.yticks([])</span><br><span class="line">    plt.subplot(<span class="number">122</span>), plt.imshow(dst), plt.title(<span class="string">&#x27;Averaging&#x27;</span>)</span><br><span class="line">    plt.xticks([]), plt.yticks([])</span><br><span class="line">    plt.show()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 四种模糊方法</span></span><br><span class="line">    blur = cv.blur(img, (<span class="number">6</span>, <span class="number">6</span>))  <span class="comment"># 平均</span></span><br><span class="line">    blur = cv.GaussianBlur(img, (<span class="number">5</span>, <span class="number">5</span>), <span class="number">0</span>) <span class="comment"># 高斯</span></span><br><span class="line">    blur = cv.medianBlur(img, <span class="number">5</span>)  <span class="comment"># 中值</span></span><br><span class="line">    blur = cv.bilateralFilter(img, <span class="number">9</span>, <span class="number">75</span>, <span class="number">75</span>) <span class="comment"># 双边</span></span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">121</span>), plt.imshow(img), plt.title(<span class="string">&#x27;Original&#x27;</span>)</span><br><span class="line">    plt.xticks([]), plt.yticks([])</span><br><span class="line">    plt.subplot(<span class="number">122</span>), plt.imshow(blur), plt.title(<span class="string">&#x27;Blurred&#x27;</span>)</span><br><span class="line">    plt.xticks([]), plt.yticks([])</span><br><span class="line">    plt.show()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><p>我们使用低通滤波器（LPF），高通滤波器（HPF）等对图像进行滤波。</p>
+<p>LPF有助于消除噪声，使图像模糊。HPF滤波器有助于在图像中找到边缘。</p>
+</li>
+<li><p>通过将图像与低通滤波器内核进行卷积来实现图像模糊,这对于消除噪音很有用。OpenCV主要提供四种类型的模糊技术。</p>
+<ul>
+<li><p>平均.</p>
+<p><code>blur = cv.blur(img,(5,5))</code></p>
+<p><code>cv.blur(src, ksize[, dst[, anchor[, borderType]]]) -&gt; dst</code></p>
+<ul>
+<li><code>src</code>：输入图像，可以是8位或浮点型数据。</li>
+<li><code>ksize</code>：滤波核大小。必须为正奇数。若为 (a,b)，则表示在 x 方向和 y 方向上的卷积核大小分别为 a 和 b。</li>
+<li><code>dst</code>：输出图像，与原图像有相同的大小、深度和通道数。如果此参数为空，则函数会自动创建一个与原图像相同的图像。</li>
+<li><code>anchor</code>：锚点位置，即卷积核的中心点。默认为 (-1, -1)，表示锚点位于卷积核中心。</li>
+<li><code>borderType</code>：边界模式。默认为 cv2.BORDER_DEFAULT。</li>
+</ul>
+</li>
+<li><p>高斯.采用像素周围的邻域并找到其高斯加权平均值.</p>
+<p>内核的宽高都应为奇数.,还要指定标准差.如果仅指定sigmaX，则将sigmaY与sigmaX相同。如果两个都为零，则根据内核大小进行计算。</p>
+<p>高斯模糊对于从图像中去除<strong>高斯噪声</strong>非常有效。</p>
+<p><code>blur = cv.GaussianBlur(img,(5,5),0)</code></p>
+<p><code>cv.GaussianBlur(src, ksize, sigmaX[, dst[, sigmaY[, borderType]]]) -&gt; dst</code></p>
+<ul>
+<li><code>src</code>：输入图像，可以是8位或浮点型数据。</li>
+<li><code>ksize</code>：高斯核的大小。必须为正奇数，且在 X 和 Y 方向上的值可以不同。如果 ksize 为 (0, 0)，则从 sigmaX 和 sigmaY 中自动计算核大小。</li>
+<li><code>sigmaX</code>：X 方向上的高斯标准差。</li>
+<li><code>dst</code>：输出图像，与原图像有相同的大小、深度和通道数。如果此参数为空，则函数会自动创建一个与原图像相同的图像。</li>
+<li><code>sigmaY</code>：Y 方向上的高斯标准差。如果 sigmaY 为零，则与 sigmaX 相同（即仅沿 X 方向平滑）。</li>
+<li><code>borderType</code>：边界模式。默认为 cv2.BORDER_DEFAULT。</li>
+</ul>
+</li>
+<li><p>中值.提取内核区域下所有像素的中值，并将中心元素替换为该中值.</p>
+<p>内核大小应为正奇数整数。它对于消除图像中的<strong>椒盐噪声</strong>非常有效。</p>
+<p><code>blur = cv.GaussianBlur(img, 5)</code></p>
+<p><code>cv.medianBlur(src, ksize[, dst]) -&gt; dst</code></p>
+<ul>
+<li><code>src</code>：输入图像，可以是8位或浮点型数据。</li>
+<li><code>ksize</code>：核的大小，必须为正奇数。</li>
+<li><code>dst</code>：输出图像，与原图像有相同的大小、深度和通道数。如果此参数为空，则函数会自动创建一个与原图像相同的图像。</li>
+</ul>
+</li>
+<li><p>双边.对于中心像素周围不同位置（尤其是和中心像素距离较近的位置）的像素的差值进行加权.</p>
+<p>去除噪声的同时保持边缘清晰锐利非常有效,但是,与其他过滤器相比,该操作速度较慢.</p>
+<p><code>cv.bilateralFilter(src, d, sigmaColor, sigmaSpace[, dst[, borderType]]) -&gt; dst</code></p>
+<ul>
+<li><code>src</code>：输入图像，可以是8位或浮点型数据。</li>
+<li><code>d</code>：表示空间高斯函数标准差，即像素之间相邻关系的高斯函数标准差。</li>
+<li><code>sigmaColor</code>：表示像素值相似性高斯函数标准差，即像素值差异关系的高斯函数标准差。</li>
+<li><code>sigmaSpace</code>：表示坐标空间中的高斯函数标准差，即在像素之间加权计算的像素距离关系上的高斯函数标准差。</li>
+<li><code>dst</code>：输出图像，与原图像有相同的大小、深度和通道数。</li>
+<li><code>borderType</code>：边界模式。默认值为cv2.BORDER_DEFAULT。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0-OpenCV/" rel="tag"># 笔记_OpenCV</a>
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/07/tu-xiang-yu-zhi/" rel="prev" title="图像阈值">
+                  <i class="fa fa-angle-left"></i> 图像阈值
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/07/xing-tai-xue-zhuan-huan/" rel="next" title="形态学转换">
+                  形态学转换 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">snow</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

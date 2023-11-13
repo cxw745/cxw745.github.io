@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="学习将图像从一个色彩空间转换到另一个. 创建一个应用程序提取视频中的彩色对象. 学习cv.cvtColor,cv.inRange.  在视频中同时提取红色，蓝色，绿色对象。 首先从BRG空间使用cv.cvtColor()将想要提取的颜色转换到HSV空间,然后设置一定的HSV范围.使用cv.inRange得到该颜色的掩模.对多个掩模进行或运算可以得到想要提取的所有颜色的掩模,然后对视频每一帧使用以">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" 改变颜色空间">
+<meta property="og:url" content="http://example.com/2023/06/03/gai-bian-yan-se-kong-jian/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="学习将图像从一个色彩空间转换到另一个. 创建一个应用程序提取视频中的彩色对象. 学习cv.cvtColor,cv.inRange.  在视频中同时提取红色，蓝色，绿色对象。 首先从BRG空间使用cv.cvtColor()将想要提取的颜色转换到HSV空间,然后设置一定的HSV范围.使用cv.inRange得到该颜色的掩模.对多个掩模进行或运算可以得到想要提取的所有颜色的掩模,然后对视频每一帧使用以">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-03T10:09:06.000Z">
+<meta property="article:modified_time" content="2023-06-03T10:10:09.232Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="笔记_OpenCV">
+<meta property="article:tag" content="OpenCV">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/06/03/gai-bian-yan-se-kong-jian/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/06/03/gai-bian-yan-se-kong-jian/","path":"2023/06/03/gai-bian-yan-se-kong-jian/","title":" 改变颜色空间"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title> 改变颜色空间 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">snow</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/03/gai-bian-yan-se-kong-jian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="snow">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content=" 改变颜色空间 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+           改变颜色空间
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-06-03 18:09:06 / Modified: 18:10:09" itemprop="dateCreated datePublished" datetime="2023-06-03T18:09:06+08:00">2023-06-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ul>
+<li>学习将图像从一个色彩空间转换到另一个.</li>
+<li>创建一个应用程序提取视频中的彩色对象.</li>
+<li>学习<code>cv.cvtColor</code>,<code>cv.inRange</code>.</li>
+</ul>
+<p><strong>在视频中同时提取红色，蓝色，绿色对象。</strong></p>
+<p>首先从BRG空间使用<code>cv.cvtColor()</code>将想要提取的颜色转换到HSV空间,然后设置一定的HSV范围.使用<code>cv.inRange</code>得到该颜色的掩模.对多个掩模进行或运算可以得到想要提取的所有颜色的掩模,然后对视频每一帧使用以上掩模进行与运算得到提取结果.</p>
+<p>为什么使用HSV色彩空间?因为HSV色彩空间对色彩的提取更容易,它将色彩分为色调,饱和度,明度三部分,每一部分可以单独调整.而BRG空间无法单独调整饱和度和明度,它的色调,饱和度和明度都会随着BRG三个值的调整而同时改变.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">capture_color</span>():</span><br><span class="line">    <span class="comment"># 定义三种颜色，分别为绿、蓝、红</span></span><br><span class="line">    green = np.uint8([[[<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>]]])</span><br><span class="line">    blue = np.uint8([[[<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>]]])</span><br><span class="line">    red = np.uint8([[[<span class="number">0</span>, <span class="number">0</span>, <span class="number">255</span>]]])</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 将RGB格式转换成HSV格式，便于之后的颜色过滤</span></span><br><span class="line">    hsv_green = cv.cvtColor(green, cv.COLOR_BGR2HSV)</span><br><span class="line">    hsv_blue = cv.cvtColor(blue, cv.COLOR_BGR2HSV)</span><br><span class="line">    hsv_red = cv.cvtColor(red, cv.COLOR_BGR2HSV)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获取三种颜色的HSV数值，便于之后的颜色过滤</span></span><br><span class="line">    green = hsv_green[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    blue = hsv_blue[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line">    red = hsv_red[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 创建VideoCapture对象，打开默认的摄像头</span></span><br><span class="line">    cap = cv.VideoCapture(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 循环读取摄像头中的数据</span></span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="comment"># 读取一帧图像</span></span><br><span class="line">        ret, frame = cap.read()</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将读取到的图像从RGB格式转换成HSV格式</span></span><br><span class="line">        hsv_frame = cv.cvtColor(frame, cv.COLOR_BGR2HSV)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 分别定义三种颜色的上下限阈值，用于过滤出对应颜色的像素点</span></span><br><span class="line">        l_green = np.array(green - [<span class="number">20</span>, <span class="number">200</span>, <span class="number">200</span>])</span><br><span class="line">        h_green = np.array(green + [<span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        l_blue = np.array(blue - [<span class="number">20</span>, <span class="number">200</span>, <span class="number">200</span>])</span><br><span class="line">        h_blue = np.array(blue + [<span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        l_red = np.array(red - [<span class="number">20</span>, <span class="number">200</span>, <span class="number">200</span>])</span><br><span class="line">        h_red = np.array(red + [<span class="number">20</span>, <span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 根据上下限阈值过滤出对应颜色的像素点</span></span><br><span class="line">        mask_green = cv.inRange(hsv_frame, l_green, h_green)</span><br><span class="line">        mask_blue = cv.inRange(hsv_frame, l_blue, h_blue)</span><br><span class="line">        mask_red = cv.inRange(hsv_frame, l_red, h_red)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 将三种颜色的掩模图叠加，得到最终掩模图</span></span><br><span class="line">        mask = cv.bitwise_or(mask_green, mask_blue)</span><br><span class="line">        mask = cv.bitwise_or(mask, mask_red)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 用掩模进行与运算, 得到最终图像</span></span><br><span class="line">        res = cv.bitwise_and(frame, frame, mask=mask)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 显示原图、掩模图和最终图像</span></span><br><span class="line">        cv.imshow(<span class="string">&#x27;frame&#x27;</span>, frame)</span><br><span class="line">        cv.imshow(<span class="string">&#x27;mask&#x27;</span>, mask)</span><br><span class="line">        cv.imshow(<span class="string">&#x27;res&#x27;</span>, res)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 设置窗口大小</span></span><br><span class="line">        cv.resizeWindow(<span class="string">&quot;frame&quot;</span>, <span class="number">400</span>, <span class="number">300</span>)</span><br><span class="line">        cv.resizeWindow(<span class="string">&quot;mask&quot;</span>, <span class="number">400</span>, <span class="number">300</span>)</span><br><span class="line">        cv.resizeWindow(<span class="string">&quot;res&quot;</span>, <span class="number">400</span>, <span class="number">300</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 如果按下ESC键，则退出循环</span></span><br><span class="line">        <span class="keyword">if</span> cv.waitKey(<span class="number">5</span>) &amp; <span class="number">0xFF</span> == <span class="number">27</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 释放资源并关闭窗口</span></span><br><span class="line">    cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><p>HSV 表达彩色图像的方式由三个部分组成：</p>
+<ul>
+<li>Hue（色调）</li>
+<li>Saturation（饱和度）</li>
+<li>Value（明度）</li>
+</ul>
+</li>
+<li><p>HSV的色相范围为[0,179]，饱和度范围为[0,255]，值范围为[0,255]。不同的软件使用不同的规模。因此，如果你要将OpenCV值和它们比较，你需要将这些范围标准化。</p>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li><p>cv.inRange是OpenCV中的一种图像二值化函数，用于将输入图像中的指定颜色范围内的像素赋值为255（白色），其它像素赋值为0（黑色）。</p>
+<p>该函数的语法格式为：<code>dst = cv.inRange(src, lowerb, upperb[, dst])</code></p>
+<p>其中，各参数解释如下：</p>
+<ul>
+<li>src：表示输入图像，必须是一个三通道彩色图像。注意：在HSV空间中，图像的H通道范围是[0, 180]，S和V通道范围是[0, 255]。</li>
+<li>lowerb，upperb：表示颜色范围的下界和上界。可以是一个标量或一个包含三个元素的数组，分别表示B、G、R通道的下&#x2F;上界值。</li>
+<li>dst：可选参数，表示输出的二值图像，大小和类型与输入图像相同。如果未提供该参数，则会自动创建一个和输入图像大小和类型相同的二值图像。</li>
+</ul>
+<p>该函数返回一个二值图像，其中颜色范围内的像素值为255，其它像素为0。</p>
+<p>需要注意的是，在HSV（色相、饱和度、亮度&#x2F;值）色彩空间中应用该函数时，需要对图像进行颜色空间转换，将BGR图像转化为HSV图像，然后选择合适的H、S、V阈值进行处理。</p>
+<p>例如，如果想要提取一幅图像中的蓝色目标区域，则可以先将BGR图像转化为HSV图像，然后根据H通道（色相）的取值范围提取出蓝色区域，即调用cv.inRange函数并指定lowerb&#x3D;[90,50,50], upperb&#x3D;[130,255,255]即可。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>参考</strong></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/67930839">三分钟带你快速学习RGB、HSV和HSL颜色空间 - 知乎 (zhihu.com)</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/113122344">一文读懂 YUV 的采样与格式 - 知乎 (zhihu.com)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0-OpenCV/" rel="tag"># 笔记_OpenCV</a>
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/03/tu-xiang-shang-de-suan-shu-yun-suan/" rel="prev" title="图像上的算数运算">
+                  <i class="fa fa-angle-left"></i> 图像上的算数运算
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/05/jian-ce-xiang-su-dian-yan-se-andhui-tu-qiu-mian-ji-he-zhou-chang/" rel="next" title="检测像素点颜色＆绘图求面积和周长">
+                  检测像素点颜色＆绘图求面积和周长 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">snow</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

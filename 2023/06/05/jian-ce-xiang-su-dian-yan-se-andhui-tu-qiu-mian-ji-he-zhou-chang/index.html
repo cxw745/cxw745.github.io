@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="实现一个python工具,主要功能如下.  左键按住移动鼠标绘图,绘制完显示周长和面积. 右键按住移动鼠标擦除. 左键双击清空绘图. 左键点击显示像素点的BGR和HSV数值.  结果如下图所示.绘图以及显示其面积和周长显示点击像素点的颜色属性 123456789101112131415161718192021222324252627282930313233343536373839404142434">
+<meta property="og:type" content="article">
+<meta property="og:title" content="检测像素点颜色＆绘图求面积和周长">
+<meta property="og:url" content="http://example.com/2023/06/05/jian-ce-xiang-su-dian-yan-se-andhui-tu-qiu-mian-ji-he-zhou-chang/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实现一个python工具,主要功能如下.  左键按住移动鼠标绘图,绘制完显示周长和面积. 右键按住移动鼠标擦除. 左键双击清空绘图. 左键点击显示像素点的BGR和HSV数值.  结果如下图所示.绘图以及显示其面积和周长显示点击像素点的颜色属性 123456789101112131415161718192021222324252627282930313233343536373839404142434">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cxw745.github.io/post-images/1685955340728.png">
+<meta property="og:image" content="https://cxw745.github.io/post-images/1685955346405.png">
+<meta property="article:published_time" content="2023-06-05T08:54:07.000Z">
+<meta property="article:modified_time" content="2023-06-05T09:04:28.085Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="OpenCV">
+<meta property="article:tag" content="项目_OpenCV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cxw745.github.io/post-images/1685955340728.png">
+
+
+<link rel="canonical" href="http://example.com/2023/06/05/jian-ce-xiang-su-dian-yan-se-andhui-tu-qiu-mian-ji-he-zhou-chang/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/06/05/jian-ce-xiang-su-dian-yan-se-andhui-tu-qiu-mian-ji-he-zhou-chang/","path":"2023/06/05/jian-ce-xiang-su-dian-yan-se-andhui-tu-qiu-mian-ji-he-zhou-chang/","title":"检测像素点颜色＆绘图求面积和周长"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>检测像素点颜色＆绘图求面积和周长 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">snow</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/05/jian-ce-xiang-su-dian-yan-se-andhui-tu-qiu-mian-ji-he-zhou-chang/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="snow">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="检测像素点颜色＆绘图求面积和周长 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          检测像素点颜色＆绘图求面积和周长
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-06-05 16:54:07 / Modified: 17:04:28" itemprop="dateCreated datePublished" datetime="2023-06-05T16:54:07+08:00">2023-06-05</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>实现一个python工具,主要功能如下.</p>
+<ol>
+<li>左键按住移动鼠标绘图,绘制完显示周长和面积.</li>
+<li>右键按住移动鼠标擦除.</li>
+<li>左键双击清空绘图.</li>
+<li>左键点击显示像素点的BGR和HSV数值.</li>
+</ol>
+<p>结果如下图所示.<br><strong>绘图以及显示其面积和周长</strong><br><img src="https://cxw745.github.io/post-images/1685955340728.png" alt="绘图以及显示其面积和周长"><br><strong>显示点击像素点的颜色属性</strong><br><img src="https://cxw745.github.io/post-images/1685955346405.png" alt="显示点击像素点的颜色属性"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">color_and_contour</span>():</span><br><span class="line">    <span class="comment"># 要注意的是 图像的返回是 位置坐标是(宽,高) 宽对应横向坐标,也即numpy的y 高对应纵向坐标,也即numpy的x</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">draw_contour</span>(<span class="params">event, x, y, flags, param</span>):</span><br><span class="line">        <span class="keyword">nonlocal</span> DRAWING, ERASE, CONTOUR</span><br><span class="line">        <span class="keyword">nonlocal</span> img, origin_img</span><br><span class="line">        <span class="comment"># 按下左键开始绘画</span></span><br><span class="line">        <span class="keyword">if</span> event == cv.EVENT_LBUTTONDOWN:</span><br><span class="line">            DRAWING = <span class="literal">True</span></span><br><span class="line">            img[:<span class="number">100</span>, :<span class="number">400</span>] = origin_img[:<span class="number">100</span>, :<span class="number">400</span>]  <span class="comment"># 清空原来的显示内容 下一次显示不重叠</span></span><br><span class="line">        <span class="comment"># 点击右键是橡皮擦功能</span></span><br><span class="line">        <span class="keyword">elif</span> event == cv.EVENT_RBUTTONDOWN:</span><br><span class="line">            ERASE = <span class="literal">True</span></span><br><span class="line">        <span class="comment"># 左键双击清空</span></span><br><span class="line">        <span class="keyword">elif</span> event == cv.EVENT_LBUTTONDBLCLK:</span><br><span class="line">            <span class="comment"># img = origin_img 不对</span></span><br><span class="line">            img = origin_img.copy()</span><br><span class="line">        <span class="keyword">elif</span> event == cv.EVENT_MOUSEMOVE:</span><br><span class="line">            <span class="keyword">if</span> DRAWING:</span><br><span class="line">                cv.circle(img, (x, y), <span class="number">0</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">                CONTOUR.append((x, y))</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(CONTOUR) &gt; <span class="number">1</span>:</span><br><span class="line">                    cv.line(img, CONTOUR[-<span class="number">2</span>], CONTOUR[-<span class="number">1</span>], (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">            <span class="keyword">if</span> ERASE:</span><br><span class="line">                img[y - <span class="number">20</span>:y + <span class="number">20</span>, x - <span class="number">20</span>:x + <span class="number">20</span>] = origin_img[y - <span class="number">20</span>:y + <span class="number">20</span>, x - <span class="number">20</span>:x + <span class="number">20</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">elif</span> event == cv.EVENT_LBUTTONUP:</span><br><span class="line">            <span class="comment"># 获得像素点的属性 并且在图像左上角显示</span></span><br><span class="line">            b, g, r = img[y, x]</span><br><span class="line">            h, s, v = cv.cvtColor(img, cv.COLOR_BGR2HSV)[y, x]</span><br><span class="line">            cv.putText(img, <span class="string">&#x27;B: %d G: %d R: %d&#x27;</span> % (b, g, r), (<span class="number">20</span>, <span class="number">30</span>), cv.FONT_HERSHEY_SIMPLEX, <span class="number">0.6</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">1</span>,</span><br><span class="line">                       cv.LINE_AA)</span><br><span class="line">            cv.putText(img, <span class="string">&#x27;H: %d S: %d V: %d&#x27;</span> % (h, s, v), (<span class="number">20</span>, <span class="number">50</span>), cv.FONT_HERSHEY_SIMPLEX, <span class="number">0.6</span>, (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">1</span>,</span><br><span class="line">                       cv.LINE_AA)</span><br><span class="line"></span><br><span class="line">            <span class="comment"># 给图形封口</span></span><br><span class="line">            area, perimeter = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line">            <span class="comment"># 能够计算周长和面积</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(CONTOUR) &gt; <span class="number">2</span>:</span><br><span class="line">                cv.line(img, CONTOUR[-<span class="number">1</span>], CONTOUR[<span class="number">0</span>], (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">2</span>)</span><br><span class="line">                <span class="comment"># 获得图形的面积和周长</span></span><br><span class="line">                contour = np.array(CONTOUR)</span><br><span class="line">                area = <span class="built_in">round</span>(cv.contourArea(contour), <span class="number">3</span>)  <span class="comment"># 计算轮廓面积</span></span><br><span class="line">                perimeter = <span class="built_in">round</span>(cv.arcLength(contour, <span class="literal">True</span>), <span class="number">3</span>)  <span class="comment"># 计算轮廓周长</span></span><br><span class="line">            cv.putText(img, <span class="string">&#x27;Area:%.3f Perimeter:%.3f&#x27;</span> % (area, perimeter), (<span class="number">20</span>, <span class="number">80</span>),</span><br><span class="line">                       cv.FONT_HERSHEY_SIMPLEX, <span class="number">0.6</span>,</span><br><span class="line">                       (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>), <span class="number">1</span>, cv.LINE_AA)</span><br><span class="line">            <span class="comment"># 画完清空数组</span></span><br><span class="line">            CONTOUR.clear()</span><br><span class="line">            DRAWING = <span class="literal">False</span></span><br><span class="line">        <span class="keyword">elif</span> event == cv.EVENT_RBUTTONUP:</span><br><span class="line">            ERASE = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 轮廓数组 存储绘图的点</span></span><br><span class="line">    CONTOUR = []</span><br><span class="line">    <span class="comment"># 两个状态 分别是绘画和擦除</span></span><br><span class="line">    DRAWING, ERASE, = <span class="literal">False</span>, <span class="literal">False</span></span><br><span class="line">    origin_img = cv.imread(<span class="string">&#x27;./img/cat.png&#x27;</span>, <span class="number">1</span>)</span><br><span class="line">    img = origin_img.copy()</span><br><span class="line">    cv.namedWindow(<span class="string">&#x27;img&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">    cv.setMouseCallback(<span class="string">&#x27;img&#x27;</span>, draw_contour)</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        cv.imshow(<span class="string">&#x27;img&#x27;</span>, img)</span><br><span class="line">        <span class="keyword">if</span> cv.waitKey(<span class="number">1</span>) &amp; <span class="number">0xFF</span> == <span class="number">27</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li><code>nonlocal</code>和<code>global</code>都是处理变量作用域的关键字.<code>global</code> 用于在函数内访问全局变量,<code>nonlocal</code>用于在嵌套函数中引用上一级函数的变量.</li>
+<li>鼠标返回位置坐标是(宽,高).宽对应横向坐标,也即numpy的y 高对应纵向坐标,也即numpy的x.因此修改图像时应该是(高,宽)进行索引.即图像的(x,y)对应numpy数组的(y,x).</li>
+<li>擦除图像可以使用原图像相应的位置覆盖修改后的图像.</li>
+<li>numpy数组的copy和&#x3D;有所区别,copy创建一个新对象,&#x3D;指向原对象.但使用切片操作时的&#x3D;会创建一个新对象.</li>
+<li><code>cv.contourArea(contour)</code>计算轮廓面积.<code>contour</code>表示一个轮廓的numpy数组,是一个点集.</li>
+<li><code>cv.arcLength(contour, True)</code>计算轮廓周长,<code>contour</code>表示一个轮廓的numpy数组,是一个点集.第二个参数<code>True</code>表示是封闭轮廓,<code>False</code>表示是非封闭轮廓.</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+              <a href="/tags/%E9%A1%B9%E7%9B%AE-OpenCV/" rel="tag"># 项目_OpenCV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/03/gai-bian-yan-se-kong-jian/" rel="prev" title=" 改变颜色空间">
+                  <i class="fa fa-angle-left"></i>  改变颜色空间
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/07/tu-xiang-de-ji-he-bian-huan/" rel="next" title="图像的几何变换">
+                  图像的几何变换 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">snow</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

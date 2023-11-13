@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="学习简单阈值,自适应阈值,Otsu阈值. 学习cv.threshold,cv.adaptiveThreshold简单阈值的方法使用不同方法的结果1234567891011121314151617181920212223242526272829303132333435def img_threshold():    img &#x3D; cv.imread(cat_img)    gray_img &#x3D; cv.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像阈值">
+<meta property="og:url" content="http://example.com/2023/06/07/tu-xiang-yu-zhi/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="学习简单阈值,自适应阈值,Otsu阈值. 学习cv.threshold,cv.adaptiveThreshold简单阈值的方法使用不同方法的结果1234567891011121314151617181920212223242526272829303132333435def img_threshold():    img &#x3D; cv.imread(cat_img)    gray_img &#x3D; cv.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cxw745.github.io/post-images/1686097988335.png">
+<meta property="og:image" content="https://cxw745.github.io/post-images/1686098015379.png">
+<meta property="article:published_time" content="2023-06-06T23:55:07.000Z">
+<meta property="article:modified_time" content="2023-06-07T01:14:25.628Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="笔记_OpenCV">
+<meta property="article:tag" content="OpenCV">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cxw745.github.io/post-images/1686097988335.png">
+
+
+<link rel="canonical" href="http://example.com/2023/06/07/tu-xiang-yu-zhi/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/06/07/tu-xiang-yu-zhi/","path":"2023/06/07/tu-xiang-yu-zhi/","title":"图像阈值"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>图像阈值 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">snow</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/07/tu-xiang-yu-zhi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="snow">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="图像阈值 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图像阈值
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-06-07 07:55:07 / Modified: 09:14:25" itemprop="dateCreated datePublished" datetime="2023-06-07T07:55:07+08:00">2023-06-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ul>
+<li>学习简单阈值,自适应阈值,Otsu阈值.</li>
+<li>学习<code>cv.threshold</code>,<code>cv.adaptiveThreshold</code><br><strong>简单阈值的方法</strong><br><img src="https://cxw745.github.io/post-images/1686097988335.png"><br><strong>使用不同方法的结果</strong><br><img src="https://cxw745.github.io/post-images/1686098015379.png"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">img_threshold</span>():</span><br><span class="line">    img = cv.imread(cat_img)</span><br><span class="line">    gray_img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)</span><br><span class="line">    <span class="comment"># 简单阈值方式有以下几种</span></span><br><span class="line">    <span class="comment"># cv.THRESH_BINARY</span></span><br><span class="line">    <span class="comment"># cv.THRESH_BINARY_INV</span></span><br><span class="line">    <span class="comment"># cv.THRESH_TRUNC</span></span><br><span class="line">    <span class="comment"># cv.THRESH_TOZERO</span></span><br><span class="line">    <span class="comment"># cv.THRESH_TOZERO_INV</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 简单阈值</span></span><br><span class="line">    ret, simple_threshold = cv.threshold(src=gray_img, thresh=<span class="number">127</span>, maxval=<span class="number">255</span>, <span class="built_in">type</span>=cv.THRESH_BINARY)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 自适应阈值 如果blocksize设置成无穷大,结果将于otus二值化几乎一样</span></span><br><span class="line">    adaptive_threshold = cv.adaptiveThreshold(src=gray_img, maxValue=<span class="number">255</span>, adaptiveMethod=cv.ADAPTIVE_THRESH_GAUSSIAN_C,</span><br><span class="line">                                              thresholdType=cv.THRESH_BINARY, blockSize=<span class="number">7</span>, C=<span class="number">1</span>)</span><br><span class="line">    <span class="comment"># otus二值化</span></span><br><span class="line">    ret2, otsu_threshold = cv.threshold(gray_img, <span class="number">0</span>, <span class="number">255</span>, cv.THRESH_BINARY + cv.THRESH_OTSU)</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">141</span>)</span><br><span class="line">    plt.imshow(gray_img, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;origin&#x27;</span>)</span><br><span class="line">    plt.subplot(<span class="number">142</span>)</span><br><span class="line">    plt.imshow(simple_threshold, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;simple&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">143</span>)</span><br><span class="line">    plt.imshow(adaptive_threshold, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;adaptive&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    plt.subplot(<span class="number">144</span>)</span><br><span class="line">    plt.imshow(otsu_threshold, <span class="string">&#x27;gray&#x27;</span>)</span><br><span class="line">    plt.title(<span class="string">&#x27;outs&#x27;</span>)</span><br><span class="line">    plt.show()</span><br><span class="line">    <span class="comment"># 自适应阈值</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<ul>
+<li><p>简单阈值手动设置阈值,对每个像素应用相同的阈值,对图像使用全局阈值.</p>
+<p>自适应阈值基于像素周围的小区域确定像素的阈值,对图像使用局部阈值.该方法为光照度变化的图像提供更好的结果.当设置周围的区域为无穷大时,可以观察到二值结果与otsu相似.</p>
+<p>otsu二值化自动确定阈值.该算法被认为是图像分割中阈值选取的最佳算法，计算简单，不受图像亮度和对比度的影响。</p>
+</li>
+<li><p><code>cv2.adaptiveThreshold(src, maxValue, adaptiveMethod, thresholdType, blockSize, C[, dst]) -&gt; dst</code></p>
+<ul>
+<li><p>该函数返回阈值后的图像.</p>
+</li>
+<li><p><code>src</code> ：8位输入图像。</p>
+</li>
+<li><p><code>maxValue</code>：二值化最大值，即当像素值超过阈值时，其赋值为的最大值。</p>
+</li>
+<li><p><code>adaptiveMethod</code>：自适应方法，有两个选项可选：</p>
+<ul>
+<li><code>cv2.ADAPTIVE_THRESH_MEAN_C</code>：使用邻域块的平均值作为阈值。</li>
+<li><code>cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code>：使用邻域块的高斯加权平均值作为阈值。</li>
+</ul>
+</li>
+<li><p><code>thresholdType</code>：二值化类型，只有两个选项可选：</p>
+<ul>
+<li><code>cv2.THRESH_BINARY</code>：大于阈值的像素点设置为最大值（常用于目标检测）。</li>
+<li><code>cv2.THRESH_BINARY_INV</code>：大于阈值的像素点设置为最小值（常用于生成掩模）。</li>
+</ul>
+</li>
+<li><p><code>blockSize</code>：邻域块大小，用来计算局部阈值；必须是&gt; 1且是奇数。一般取3、5、7等。</p>
+</li>
+<li><p><code>C</code>：从计算出的平均值或高斯加权平均值中减去常数C（&#x3D;x）。</p>
+</li>
+<li><p><code>dst</code>：输出二值图像，与原图像大小、深度和通道数相同。</p>
+</li>
+</ul>
+</li>
+<li><p><code>cv.threshold(src, thresh, maxval, type[, dst]) -&gt; retval, dst</code></p>
+<ul>
+<li>该方法返回两个输出。第一个是使用的阈值，第二个输出是<strong>阈值后的图像</strong>。</li>
+<li><code>src</code>：8位单通道源图像。</li>
+<li><code>thresh</code>：二值化阈值。根据不同的thresholdType类型，它可能被忽略。</li>
+<li><code>maxval</code>：设定二值化时满足条件的像素点赋予的最大值。</li>
+<li><code>type</code>：二值化操作的类型。当type取值为cv.THRESH_BINARY或cv.THRESH_BINARY_INV时，func会忽略thresh参数，并自动进行OTSU二值化操作。</li>
+<li><code>dst</code>：用于存放输出图像的Mat对象。</li>
+</ul>
+</li>
+<li><p>所有简单的阈值类型为：</p>
+<ul>
+<li>cv.THRESH_BINARY</li>
+<li>cv.THRESH_BINARY_INV</li>
+<li>cv.THRESH_TRUNC</li>
+<li>cv.THRESH_TOZERO</li>
+<li>cv.THRESH_TOZERO_INV</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<p><strong>参考</strong></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43977647/article/details/115354680">opencv中自适应阈值（adaptiveThreshold()函数）介绍_若水上善666的博客-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40647819/article/details/90179953">OTSU算法（大津法—最大类间方差法）原理及实现_小武~~的博客-CSDN博客</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0-OpenCV/" rel="tag"># 笔记_OpenCV</a>
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/07/tu-xiang-de-ji-he-bian-huan/" rel="prev" title="图像的几何变换">
+                  <i class="fa fa-angle-left"></i> 图像的几何变换
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/07/tu-xiang-ping-hua/" rel="next" title="图像平滑">
+                  图像平滑 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">snow</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

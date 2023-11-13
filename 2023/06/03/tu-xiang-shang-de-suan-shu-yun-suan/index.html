@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 7.0.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha256-CTSx/A06dm1B063156EVh15m6Y67pAjZZaQc89LLSrU=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.18.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"Searching...","empty":"We didn't find any results for the search: ${query}","hits_time":"${hits} results found in ${time} ms","hits":"${hits} results found"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="学习图像的基本算术运算. 学习cv.add,cv.addWeighted,cv.threshold,cv.bitwise_?.  熟悉一下函数,胡乱操作一波. 12345678910111213141516171819202122232425262728293031323334353637383940414243def img_base_math_op():    # 使用图像加法时,图片尺寸要">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图像上的算数运算">
+<meta property="og:url" content="http://example.com/2023/06/03/tu-xiang-shang-de-suan-shu-yun-suan/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="学习图像的基本算术运算. 学习cv.add,cv.addWeighted,cv.threshold,cv.bitwise_?.  熟悉一下函数,胡乱操作一波. 12345678910111213141516171819202122232425262728293031323334353637383940414243def img_base_math_op():    # 使用图像加法时,图片尺寸要">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-06-03T03:13:23.000Z">
+<meta property="article:modified_time" content="2023-06-03T03:14:14.532Z">
+<meta property="article:author" content="snow">
+<meta property="article:tag" content="笔记_OpenCV">
+<meta property="article:tag" content="OpenCV">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/06/03/tu-xiang-shang-de-suan-shu-yun-suan/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"en","comments":true,"permalink":"http://example.com/2023/06/03/tu-xiang-shang-de-suan-shu-yun-suan/","path":"2023/06/03/tu-xiang-shang-de-suan-shu-yun-suan/","title":"图像上的算数运算"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>图像上的算数运算 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="Search" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">snow</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/03/tu-xiang-shang-de-suan-shu-yun-suan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="snow">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="图像上的算数运算 | Hexo">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          图像上的算数运算
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">Posted on</span>
+      
+
+      <time title="Created: 2023-06-03 11:13:23 / Modified: 11:14:14" itemprop="dateCreated datePublished" datetime="2023-06-03T11:13:23+08:00">2023-06-03</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><ul>
+<li>学习图像的基本算术运算.</li>
+<li>学习<code>cv.add</code>,<code>cv.addWeighted</code>,<code>cv.threshold</code>,<code>cv.bitwise_?</code>.</li>
+</ul>
+<p>熟悉一下函数,胡乱操作一波.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">img_base_math_op</span>():</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 使用图像加法时,图片尺寸要相同</span></span><br><span class="line">    <span class="comment"># 图像加法,使用cv.add(),而非numpy</span></span><br><span class="line">    x = np.uint8([<span class="number">250</span>])</span><br><span class="line">    y = np.uint8([<span class="number">10</span>])</span><br><span class="line">    <span class="comment"># numpy add 模</span></span><br><span class="line">    <span class="built_in">print</span>(x + y)  <span class="comment"># 250+10=260%256=4</span></span><br><span class="line">    <span class="comment"># opencv add 饱和</span></span><br><span class="line">    <span class="built_in">print</span>(cv.add(x, y))  <span class="comment"># 250+10=260=255</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 图像融合 给不同图像赋予不同权重</span></span><br><span class="line">    img1 = cv.imread(img1_name)</span><br><span class="line">    img2 = cv.imread(img2_name)</span><br><span class="line"></span><br><span class="line">    dst = cv.addWeighted(img1, <span class="number">0.6</span>, img2, <span class="number">0.3</span>, <span class="number">0</span>)</span><br><span class="line">    cv.namedWindow(<span class="string">&#x27;dst&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">    cv.resize(dst, [<span class="number">400</span>, <span class="number">300</span>])</span><br><span class="line">    cv.imshow(<span class="string">&#x27;dst&#x27;</span>, dst)</span><br><span class="line">    cv.waitKey(<span class="number">0</span>)</span><br><span class="line">    cv.destroyAllWindows()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 按位运算</span></span><br><span class="line">    <span class="comment"># 加载两张图片</span></span><br><span class="line">    img1 = cv.imread(img1_name)</span><br><span class="line">    img2 = cv.imread(img2_name)</span><br><span class="line">    <span class="comment"># 我想把logo放在左上角，所以我创建了ROI</span></span><br><span class="line">    rows, cols, channels = img2.shape</span><br><span class="line">    roi = img1[<span class="number">0</span>:rows, <span class="number">0</span>:cols]</span><br><span class="line">    <span class="comment"># 现在创建logo的掩码，并同时创建其相反掩码</span></span><br><span class="line">    img2gray = cv.cvtColor(img2, cv.COLOR_BGR2GRAY)</span><br><span class="line">    ret, mask = cv.threshold(img2gray, <span class="number">10</span>, <span class="number">255</span>, cv.THRESH_BINARY)  <span class="comment"># cv.THRESH_BINARY表示超过阈值(10)的部分取maxval（255），否则取0（最小值）</span></span><br><span class="line">    mask_inv = cv.bitwise_not(mask)</span><br><span class="line">    <span class="comment"># 现在将ROI中logo的区域涂黑</span></span><br><span class="line">    img1_bg = cv.bitwise_and(roi, roi, mask=mask_inv)</span><br><span class="line">    <span class="comment"># 仅从logo图像中提取logo区域</span></span><br><span class="line">    img2_fg = cv.bitwise_and(img2, img2, mask=mask)</span><br><span class="line">    <span class="comment"># 将logo放入ROI并修改主图像</span></span><br><span class="line">    dst = cv.add(img1_bg, img2_fg)</span><br><span class="line">    img1[<span class="number">0</span>:rows, <span class="number">0</span>:cols] = dst</span><br><span class="line">    cv.imshow(<span class="string">&#x27;res&#x27;</span>, img1)</span><br><span class="line">    cv.waitKey(<span class="number">0</span>)</span><br><span class="line">    cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<p>使用<code>cv.addWeighted</code>函数在文件夹中创建图像的幻灯片放映，并在图像之间进行平滑过渡.以下是三张图片的循环幻灯片.</p>
+<p>如果有多张图片,可以使用链表将图片连接起来,每次切换一张图片后,就使第一张图片链接到链表末尾,然后再次从链表头部开始读取.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">show_slide</span>():</span><br><span class="line">    <span class="comment"># 读取三张图片</span></span><br><span class="line">    img1 = cv.imread(img1_name)</span><br><span class="line">    img2 = cv.imread(img2_name)</span><br><span class="line">    img3 = cv.imread(img3_name)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 初始化混合系数alpha为0</span></span><br><span class="line">    alpha = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 循环处理直到按下ESC键退出</span></span><br><span class="line">    <span class="keyword">while</span> alpha &lt;= <span class="number">1.0</span>:</span><br><span class="line">        <span class="comment"># 每次循环检查是否按下了ESC键，是则退出循环</span></span><br><span class="line">        <span class="keyword">if</span> cv.waitKey(<span class="number">1</span>) == <span class="number">27</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 利用cv.addWeighted将两张图片按指定的alpha值进行线性混合</span></span><br><span class="line">        <span class="comment"># 这里dst就是输出的混合结果</span></span><br><span class="line">        dst = cv.addWeighted(img1, <span class="number">1</span> - alpha, img2, alpha, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 创建一个名为&#x27;dst&#x27;的窗口，并显示混合结果</span></span><br><span class="line">        cv.namedWindow(<span class="string">&#x27;dst&#x27;</span>, <span class="number">0</span>)</span><br><span class="line">        cv.resize(dst, [<span class="number">200</span>, <span class="number">170</span>])</span><br><span class="line">        cv.imshow(<span class="string">&#x27;dst&#x27;</span>, dst)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># 等待10毫秒，然后按照步长0.02递增alpha的值</span></span><br><span class="line">        cv.waitKey(<span class="number">10</span>)</span><br><span class="line">        alpha += <span class="number">0.02</span></span><br><span class="line"></span><br><span class="line">        <span class="comment"># 当alpha超过1时，交换img1,img2,img3的位置，使其循环</span></span><br><span class="line">        <span class="comment"># 多张图片可以使用链表连接图片和切换图片</span></span><br><span class="line">        <span class="keyword">if</span> alpha &gt; <span class="number">1.0</span>:</span><br><span class="line">            img1, img2, img3 = img2, img3, img1</span><br><span class="line">            alpha = <span class="number">0</span></span><br><span class="line">            cv.waitKey(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 销毁所有窗口</span></span><br><span class="line">    cv.destroyAllWindows()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>cv.add两个图像形状必须相同.</li>
+<li>OpenCV加法是饱和运算，Numpy加法是模运算。始终坚持使用OpenCV功能，因为添加两个图像时，OpenCV功能将提供更好的结果。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>cv.threshold是OpenCV中的一个图像处理函数，用于对图像进行阈值化处理。对于一幅灰度图像，可以通过cv.threshold将其转为黑白二值图像或者分割出感兴趣的区域。</p>
+<p><strong>可以使用该函数生成的图像作为掩模使用</strong>。</p>
+<p>该函数的语法格式为： retval, dst &#x3D; cv.threshold(src, thresh, maxval, type)</p>
+<p>其中，参数解释如下：</p>
+<ul>
+<li>src：待处理的图像，必须为单通道灰度图像。</li>
+<li>thresh：阈值，当像素值高于或低于此值时，可根据type进行不同的处理。</li>
+<li>maxval：阈值上限，当type取cv.THRESH_BINARY和cv.THRESH_BINARY_INV时有用。</li>
+<li>type：阈值化类型，常用的有cv.THRESH_BINARY、cv.THRESH_BINARY_INV、cv.THRESH_TRUNC、cv.THRESH_TOZERO和cv.THRESH_TOZERO_INV等五种类型。</li>
+</ul>
+<p>cv.THRESH_BINARY表示超过阈值的部分取maxval（最大值），否则取0（最小值）；cv.THRESH_BINARY_INV表示超过阈值的部分取0，否则取maxval。cv.THRESH_TRUNC表示超过阈值的部分设为阈值，否则不变；cv.THRESH_TOZERO表示超过阈值的部分不变，否则设为0；cv.THRESH_TOZERO_INV与cv.THRESH_TOZERO相反。</p>
+<p>该函数返回两个值，第一个为阈值val，第二个为输出图像dst，若不需要阈值val可忽略。</p>
+</blockquote>
+<blockquote>
+<p>cv.bitwise_and是OpenCV中的一个逐位与运算函数，用于对两个数组进行逐位与运算。通常，该函数被用于图像处理中的掩模操作，即将一个掩模图像与原图像进行逐位与运算，可以实现对指定区域的像素进行处理，而其它区域不受影响。</p>
+<p>该函数的语法格式为： dst &#x3D; cv.bitwise_and(src1, src2[, dst[, mask]])</p>
+<p>其中，各参数解释如下：</p>
+<ul>
+<li>src1，src2：需要进行逐位与运算的两个输入数组。它们的类型必须相同且大小相等。</li>
+<li>dst：可选参数，表示输出的数组，大小和类型与输入数组相同。如果未提供该参数，则会自动创建一个与输入数组相同大小和类型的数组。</li>
+<li>mask：可选参数，表示掩模图像，大小和类型与输入数组相同。如果提供了该参数，则只有掩模图像为非零值的位置才会进行逐位与运算，否则忽略该位置。</li>
+</ul>
+<p>函数返回一个表示逐位与运算结果的数组。在逐位与运算中，只有当两个操作数的对应位都为1时，结果对应位才为1，否则为0。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0-OpenCV/" rel="tag"># 笔记_OpenCV</a>
+              <a href="/tags/OpenCV/" rel="tag"># OpenCV</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/01/xiao-qiu-shi-bie/" rel="prev" title="小球识别">
+                  <i class="fa fa-angle-left"></i> 小球识别
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/03/gai-bian-yan-se-kong-jian/" rel="next" title=" 改变颜色空间">
+                   改变颜色空间 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">snow</span>
+  </div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="Back to top">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
