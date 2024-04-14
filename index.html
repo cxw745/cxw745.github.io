@@ -42,16 +42,16 @@
   isAnchor: false,
   percent: {
     toc: true,
-    rightside: false,
+    rightside: true,
   },
-  autoDarkmode: false
+  autoDarkmode: true
 }</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
   title: 'cxw745\'s Blog',
   isPost: false,
   isHome: true,
   isHighlightShrink: false,
   isToc: false,
-  postUpdate: '2024-04-14 13:36:35'
+  postUpdate: '2024-04-14 13:37:53'
 }</script><script>(win=>{
       win.saveToLocal = {
         set: (key, value, ttl) => {
@@ -130,9 +130,28 @@
       }
       const t = saveToLocal.get('theme')
     
-        if (t === 'dark') activateDarkMode()
-        else if (t === 'light') activateLightMode()
-      
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
       const asideStatus = saveToLocal.get('aside-status')
       if (asideStatus !== undefined) {
         if (asideStatus === 'hide') {
@@ -149,7 +168,8 @@
       }
       detectApple()
     })(window)</script><meta name="generator" content="Hexo 7.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://500px.com.cn/cxw745/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="cxw745's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/cxw745-logo-20240412115635-qzi9inp.png"/><span class="site-name">cxw745's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://500px.com.cn/cxw745/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">cxw745's Blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/light-and-shadow-tutorial-note-z1kmx9k.html" title="光影教程笔记">光影教程笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-10-07T09:31:42.000Z" title="发表于 2023-10-07 09:31:42">2023-10-07</time></span></div><div class="content">【光影教程】照明大师课程（中英）（野生中文字幕）（阿鬼分享）_哔哩哔哩_bilibili
-Intro​
+Intro
+​
 光照到的部分有光，照不到的部分有阴影，共同组成光影。
 光影由五个要素组成，接下来将以这五个要素是如何影响光影展开介绍。
 
@@ -159,7 +179,8 @@ Color
 Readability
 Emphasis
 
-Direction​​
+Direction
+​​
 ​​​​​​
 ​​​​
 ​​​​
@@ -168,7 +189,8 @@ Direction​​
 ​​
 ​​
 ​​
-Size​​
+Size
+​​
 ​​
 ​​​
 ​
@@ -177,18 +199,23 @@ Size​​
 ​​
 ​​
 ​​
-Colorgolden hour: 日落或日出前一小时(自然)
+Color
+golden hour: 日落或日出前一小时(自然)
 blue hour: 日落或日出后一小时(建筑)
 ​​
 ​​
 ​​
 ​​
-Readability​​
+Readability
+​​
 ​​
 ​​
 ​​
 Emphasis
+
+
 距离光源越近, 物体所受强调越重. 用光来引导视线, 强调焦点.
+
 
 创造一个对比的环境, 光照和暗处对比, 会强调光照位置.
 但是也要注意, 我们要将想表达的放在光照处, 否则会起到反作用.
@@ -201,13 +228,15 @@ Emphasis
 ​​
 ​​
 </div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/bliss-zlgvam.html" title="极乐之道">极乐之道</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-05T09:33:58.000Z" title="发表于 2023-09-05 09:33:58">2023-09-05</time></span></div><div class="content">此为转载文章，pdf版已上传至极乐之道 | download on Z-Library (zlibrary-global.se)。
-欢迎感兴趣的朋友通过邮箱 &#50;&#52;&#57;&#x38;&#54;&#x32;&#56;&#49;&#x35;&#x34;&#x40;&#113;&#x71;&#46;&#99;&#x6f;&#x6d; 联系交友探讨。
+欢迎感兴趣的朋友通过邮箱 2498628154@qq.com 联系交友探讨。
 前言部分为原作者的联系方式。
-前言这是一个神秘的世界，古今中外，都流传着无数的传说，不觉得疑惑吗？我也疑惑，所以学习实践，总结出符合逻辑的个人理解，所以卫道士、医学家、幻想家们请止步，否则就请放下固有思维，先理解后有的放矢的论道，若不然，恕不奉陪！
-微信公众号超时无法回复，个人又登陆不频繁，所以，大家有什么问题，请直接编辑发送至 &#49;&#x31;&#50;&#x37;&#x30;&#x34;&#x39;&#x30;&#x37;&#56;&#x40;&#x71;&#x71;&#x2e;&#x63;&#111;&#109; 邮箱，到时候统一在公众号回复，另外，问题请描述清楚，尤其是你自身的状态，请多用一些笔墨，个人也只是玩的多一点而已，副感神经训练太多太多的分支玩法和状态，有些细节差之毫厘失之千里，很难凭借一两个的外在表现就判定是什么情况，需要综合的看待，说的太笼统的，请原谅我实在无法回答！另外，如果您有自己的见解，也请不吝赐教，在这些内容上，没有人是大神，都只是正在摸索的瞎子罢了。
+前言
+这是一个神秘的世界，古今中外，都流传着无数的传说，不觉得疑惑吗？我也疑惑，所以学习实践，总结出符合逻辑的个人理解，所以卫道士、医学家、幻想家们请止步，否则就请放下固有思维，先理解后有的放矢的论道，若不然，恕不奉陪！
+微信公众号超时无法回复，个人又登陆不频繁，所以，大家有什么问题，请直接编辑发送至 1127049078@qq.com 邮箱，到时候统一在公众号回复，另外，问题请描述清楚，尤其是你自身的状态，请多用一些笔墨，个人也只是玩的多一点而已，副感神经训练太多太多的分支玩法和状态，有些细节差之毫厘失之千里，很难凭借一两个的外在表现就判定是什么情况，需要综合的看待，说的太笼统的，请原谅我实在无法回答！另外，如果您有自己的见解，也请不吝赐教，在这些内容上，没有人是大神，都只是正在摸索的瞎子罢了。
 仅供参考，如有雷同，纯属巧合！不信巧合，欢迎探讨！
 
-0-目录第一部分：乐的本质
+0-目录
+第一部分：乐的本质
 一、何为极乐
 二、处理环节（上）（1 接收 2 输入）
 三、处理环节（中）（3 辨别 4 指令）
@@ -236,7 +265,20 @@ Emphasis
 四、玩法介绍（无器具玩法）
 五、插射效果（完全三部曲）
 六、插射效果（单重三部曲）
-七、插射效果（双重三 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">cxw745</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" href="mailto:2498628154@qq.com"><i class="fas fa-envelope"></i><span>Contact Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/light-and-shadow-tutorial-note-z1kmx9k.html" title="光影教程笔记">光影教程笔记</a><time datetime="2023-10-07T09:31:42.000Z" title="发表于 2023-10-07 09:31:42">2023-10-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bliss-zlgvam.html" title="极乐之道">极乐之道</a><time datetime="2023-09-05T09:33:58.000Z" title="发表于 2023-09-05 09:33:58">2023-09-05</time></div></div></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2024-04-14T00:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-14T13:36:35.026Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By cxw745</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+七、插射效果（双重三部曲）
+八、紧涨效果（缺失三部曲）
+九、高巢类型
+第五部分：super-o——轻交感重副感组合输出
+一、第三个训练成就
+二、效果潜力分析
+三、丁丁玩法优势
+四、器具玩法优势
+五、无器具玩法优势
+第六部分：女性副感神经训练
+一、天然优势
+二、海蒂性学报告截取——因蒂高巢
+三、海蒂性学报告截取——因道高巢
+四、女高形 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">cxw745</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" href="mailto:2498628154@qq.com"><i class="fas fa-envelope"></i><span>Contact Me</span></a></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/light-and-shadow-tutorial-note-z1kmx9k.html" title="光影教程笔记">光影教程笔记</a><time datetime="2023-10-07T09:31:42.000Z" title="发表于 2023-10-07 09:31:42">2023-10-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/post/bliss-zlgvam.html" title="极乐之道">极乐之道</a><time datetime="2023-09-05T09:33:58.000Z" title="发表于 2023-09-05 09:33:58">2023-09-05</time></div></div></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2024-04-10T00:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2024-04-14T13:37:53.173Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 By cxw745</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
   const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
   if ($mermaid.length === 0) return
   const runMermaid = () => {
