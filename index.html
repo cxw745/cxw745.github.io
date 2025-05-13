@@ -1,0 +1,417 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>cxw745's Blog</title><meta name="author" content="cxw745"><meta name="copyright" content="cxw745"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta property="og:type" content="website">
+<meta property="og:title" content="cxw745&#39;s Blog">
+<meta property="og:url" content="https://cxw745.github.io/index.html">
+<meta property="og:site_name" content="cxw745&#39;s Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg">
+<meta property="article:author" content="cxw745">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg"><link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/cxw745-logo-20240412115635-qzi9inp.png"><link rel="canonical" href="https://cxw745.github.io/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":330},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: true,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'cxw745\'s Blog',
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2025-05-13 05:16:40'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://500px.com.cn/cxw745/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page fixed" id="page-header"><nav id="nav"><span id="blog-info"><a href="/" title="cxw745's Blog"><img class="site-icon" src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/cxw745-logo-20240412115635-qzi9inp.png"/><span class="site-name">cxw745's Blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://500px.com.cn/cxw745/"><i class="fa-fw fas fa-images"></i><span> 相册</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">cxw745's Blog</h1></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/micro-economics-note-gfxlg.html" title="“微观经济学”笔记">“微观经济学”笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2025-01-12T16:44:55.000Z" title="发表于 2025-01-12 16:44:55">2025-01-12</time></span></div><div class="content">本书的目的是帮助你学会经济学家的思考方式。
+第一篇 导言经济学研究什么
+经济学研究社会如何管理自己的稀缺资源。
+经济学家还研究人们如何相互影响。
+经济学家分析影响整个经济的力量和趋势。
+
+经济是在生活中相互交易的人们组成的群体，一个经济的行为反映了组成这个经济的个人的行为。
+第一章 “经济学十大原理”
+人们如何做出决策
+
+人们面临权衡取舍。 “社会面临的另一种权衡取舍是在效率与平等之间。” 资源具有稀缺性，不仅是社会资源，还有时间。
+某种东西的成本是为了得到它所放弃的东西。 “机会成本”：为了得到某种东西必须放弃的东西。
+理性人考虑边际量。 “当且仅当一种行为的边际收益大于边际成本时，一个理性决策者才会采取这种行为。” “边际变动”：对行动计划的微小增量调整
+人们会对激励做出反应。 由于理性人通过比较成本与收益做出决策，所以他们会对激励做出反应。 在经济学研究中，激励起着中心作用。
+
+
+人们如何相互影响
+
+贸易可以使每个人的状况都变得更好。 “比较优势”：一个生产者用比另一个生产者更少的机会成本生产某种物品的能力。
+市场通常是组织经济活动的一种好方法。 价格就是看不见的手用来指引经济活动的工具。 “市场经济”：企业和家庭相互交易，通过他们的分散决策配置资源的经济。
+政府​有时候​可以改善市场结果。 只有在政府实施规则并维持对市场经济至关重要的制度时，看不见的手才能施展其魔力。 市场经济需要实施 “产权” 制度，看不见的手依靠我们实施自己权利的能力。 大多数政策的目标是促进效率或促进平等。 “市场失灵” 指市场本身无法有效配置资源，主要原因有 “外部性” 和 “市场势力” ；看不见的手不能消除经济福利的巨大不对称。
+
+
+整体经济如何运行
+
+一国的生活水平取决于它生产物品与服务的能力。 “生产率”：每单位劳动投入所生产的物品与服务数量。 生产率是生活水平的首要决定因素。
+当政府发行了过多货币时候，物价上升。 “通货膨胀”：经济中物价总水平的上升。
+社会面临通货膨胀与失业之间的短期权衡取舍。 短期时间内，经济中货币量的增加可以减少失业，但长期来看会导致通货膨正。因此，这种短期权衡取舍的关系在分析短期的“经济周期”起着关键作用。
+
+
+
+记住这些基本原理，最复杂的经济分析也是基于此构建的。
+​​
+​​
+第二章 “像经济学家一样思考”每个领域都有自己的语言和思考方式，经济学术语 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/success-motivation-and-goal-notes-2ufcbm.html" title="《成功、动机与目标》笔记">《成功、动机与目标》笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2024-04-14T12:04:15.000Z" title="发表于 2024-04-14 12:04:15">2024-04-14</time></span></div><div class="content">《成功、动机与目标》笔记导言
+大多数人为失败找错了埋怨的对象。没有人“生来如此”。
+
+每个人都能更好地达到目标。
+
+第一步是放下对过去成败的见解。
+第二步是读这本书。
+
+
+
+每个人都有或多或少的自制力，实现目标的每个方面都需要自制力，自制力是什么呢？自制力（又叫自我监控力）像一块肌肉，因人而异，因时而异。
+以奖励的方法增强动机可以暂时弥补受损的自制力。
+自制力是后天得来的，而且可以通过锻炼而逐渐变得强大。
+定位不同的相同目标是需要不同策略来达成的，也容易在不同环节出差错。
+‍
+第一部分 成功者与自制力的悖论第一章 “做到最好”不够好无论你要去何方，第一步是决定目的地之所在。若不把愿望转换成真正的目标，我们的欲望就仅仅停留在那个“希望能够实现”的层面。
+
+拿具体而艰巨的目标取代“做到最好”。 （非常具体且困难得合理）
+
+对行为有两种理解：抽象的“为什么”和具体的“是什么”。二者在立志效果上各有利弊，我们可以在不同情况下进行转换。”为什么”通常将我们所做的事与更大的意义或目标所联系起来，这将特别能给人动力； &quot;是什么&quot;在做一件困难、生疏、复杂或是需要很多时间学习的事情时非常有帮助。”为什么”类似森林，“是什么”类似树木。
+
+何时更偏向于哪种思维方式？
+
+为什么：
+当一件事变得容易或熟练以后。
+还有一个重要因素是从开始计划到到开始行动的时间， 我们偏向于用“为什么”思维来理解较久以后才会贯彻的计划。
+
+是什么：
+面对复杂且困难的事情。
+近期计划我们更侧重于更切实际的想法——我们完成这件事情需要“做什么”。
+
+
+ “为什么”式思维使我们更看重“合意度”信息。 即做成这件事是否有好处，将会有多有趣，多愉悦，多有益。这些都是我们思考较远的未来要做的事时会问的基本问题。如果答案是肯定的，我们大概会启动计划或开始行动。
+ “是什么”式思维使我们更看重“可行度”信息。 你是否真的能做到你要做的事？有多大把握成功？你面临着什么阻碍？当我们在考虑近期要执行的事时，这些是我们想得更多的问题。
+为什么关于将来的计划总是刚开始听上去不错，但越临近越发现不对劲？因为只想了“为什么”，却没有想过方法“是什么”。 我们大多数人都一次次地掉入这样的陷阱里，因为我们习惯于用“为什么”来考虑未来的事，而较少思考究竟如何实现这些目标。 于是我们选择了有潜在丰厚报酬的目标，却带来了一场噩梦 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/light-and-shadow-tutorial-note-z1kmx9k.html" title="光影教程笔记">光影教程笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-10-07T09:31:42.000Z" title="发表于 2023-10-07 09:31:42">2023-10-07</time></span></div><div class="content">【光影教程】照明大师课程（中英）（野生中文字幕）（阿鬼分享）_哔哩哔哩_bilibili
+Intro​
+光照到的部分有光，照不到的部分有阴影，共同组成光影。
+光影由五个要素组成，接下来将以这五个要素是如何影响光影展开介绍。
+
+Direction
+Size
+Color
+Readability
+Emphasis
+
+Direction​​
+​​​​​​
+​​​​
+​​​​
+​​
+​​
+​​
+​​
+​​
+Size​​
+​​
+​​​
+​
+​​​
+​
+​​
+​​
+​​
+Colorgolden hour: 日落或日出前一小时(自然)
+blue hour: 日落或日出后一小时(建筑)
+​​
+​​
+​​
+​​
+Readability​​
+​​
+​​
+​​
+Emphasis
+距离光源越近, 物体所受强调越重. 用光来引导视线, 强调焦点.
+
+创造一个对比的环境, 光照和暗处对比, 会强调光照位置.
+但是也要注意, 我们要将想表达的放在光照处, 否则会起到反作用.
+
+
+​​
+​​
+​​
+​​
+​​
+​​
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/bliss-zlgvam.html" title="极乐之道">极乐之道</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-09-05T09:33:58.000Z" title="发表于 2023-09-05 09:33:58">2023-09-05</time></span></div><div class="content">此为转载文章，pdf版已上传至极乐之道 | download on Z-Library (zlibrary-global.se)。
+欢迎感兴趣的朋友通过邮箱 2498628154@qq.com 联系交友探讨。
+前言部分为原作者的联系方式。
+前言这是一个神秘的世界，古今中外，都流传着无数的传说，不觉得疑惑吗？我也疑惑，所以学习实践，总结出符合逻辑的个人理解，所以卫道士、医学家、幻想家们请止步，否则就请放下固有思维，先理解后有的放矢的论道，若不然，恕不奉陪！
+微信公众号超时无法回复，个人又登陆不频繁，所以，大家有什么问题，请直接编辑发送至 1127049078@qq.com 邮箱，到时候统一在公众号回复，另外，问题请描述清楚，尤其是你自身的状态，请多用一些笔墨，个人也只是玩的多一点而已，副感神经训练太多太多的分支玩法和状态，有些细节差之毫厘失之千里，很难凭借一两个的外在表现就判定是什么情况，需要综合的看待，说的太笼统的，请原谅我实在无法回答！另外，如果您有自己的见解，也请不吝赐教，在这些内容上，没有人是大神，都只是正在摸索的瞎子罢了。
+仅供参考，如有雷同，纯属巧合！不信巧合，欢迎探讨！
+
+0-目录第一部分：乐的本质
+一、何为极乐
+二、处理环节（上）（1 接收 2 输入）
+三、处理环节（中）（3 辨别 4 指令）
+四、处理环节（下）（5 输出 6 反应）
+五、错觉对比
+六、五感之乐
+七、六感之乐
+八、极致之乐
+第二部分：副感神经训练
+一、副感训练
+二、以往记忆
+三、寻找酥麻
+四、方法借鉴
+五、基础训练
+六、静心训练（上）
+七、静心训练（下）
+第三部分：控精——交感输出下的副感截胡
+一、第一个训练成就
+二、常规控精法
+三、完美控精法
+四、结尾的补充
+第四部分：前高——重交感轻副感组合输出
+一、第二个训练成就
+二、玩法介绍（丁丁玩法）
+三、玩法介绍（器具玩法）
+四、玩法介绍（无器具玩法）
+五、插射效果（完全三部曲）
+六、插射效果（单重三部曲）
+七、插射效果（双重三部曲）
+八、紧涨效果（缺失三部曲）
+九、高巢类型
+第五部分：super-o——轻交感重副感组合输出
+一、第三个训练成就
+二、效果潜力分析
+三、丁丁玩法优势
+四、器具玩法优势
+五、无器具玩法优势
+第六部分：女性副感神经训练
+一、天然优势
+二、海蒂性学报告截取——因蒂高巢
+三、海蒂性学报告截取——因道高巢
+四、女高形式— ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/post/diagram-and-its-application-1mtvem.html" title="图论及其应用">图论及其应用</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2023-05-24T10:30:43.000Z" title="发表于 2023-05-24 10:30:43">2023-05-24</time></span></div><div class="content">​​
+工科思考：学的东西有什么实际应用，能解决什么问题？与应用关联，对应用敏锐。
+学习方法：理解概念，联系应用。一句话表达清楚一个概念。
+图模型利用图建模现实问题，并用图的理论加以解决的能力。
+
+婚配问题：偶图匹配 
+充分必要条件：霍尔定理
+
+地图导航
+
+
+图的基本概念图是一个有穷系统，在顶点集上定义二元关系（V，R）。描述现实世界的事物，从现实问题抽象到数学问题，解决数学问题后再回到现实问题。
+完全图、偶图、补图、正则图$G&#x3D;(V,E)是一个(n,q)图$
+正则图：每个顶点度数都为n，称为n正则图。
+完全图：每个顶点都仅与其余的每一个顶点有一条边连接。即（n-1）正则图，n完全图记为$K_n$
+偶图（二部图）：所有可被划分为集合内部互不相连的两个顶点集的图，顶点数分别为m和n的偶图记为$K_{m,n}$
+补图：顶点相同，边为补集的两个图互为补图。
+$0\le deg \space v \le n-1$
+子图生成子图：G的生成子图指包含G全部顶点的子图。 生成：包含全部顶点。
+度$G&#x3D;(V,E)是一个(p,q)图$，与v关联的边的条数就是v的度。
+握手定理：​$\sum_{i&#x3D;0}^{i&#x3D;n}deg(v_i)&#x3D;2q$
+所有顶点的度数之和是边数的两倍。因为一条边连接两个顶点，对总度数的贡献为2。
+推论1：握过奇数次手的人有偶数个。​
+最大度记号$\triangle$(G)，G里度数最大的顶点
+最小度记号$\space\delta$(G），G里度数最小的顶点
+同构给一个图的顶点重新命名。一一对应
+路、圈、连通概念连通是图论最重要的概念。
+通道： G&#x3D;（V，E）顶点和边的交错序列。 $v_0x_1v_1…x_nv_n$称为G的一条通道，称作$v_0v_n$通道，长为边数。特别的，$v_0&#x3D;v_n$称为闭通道。
+迹：G的一条没有重复边的通道。
+闭迹：没有重复边的闭通道。
+
+顶点不重复，边也不能重复。顶点不重复是更严格的条件。
+路：G的一条没有重复顶点的通道。
+闭路（圈）：没有重复顶点的闭通道。
+
+几类证明方法
+
+演绎
+反证
+归纳（与自然数有关）
+
+
+连通连通图：$G&#x3D;(V,E).\space \forall u,v \in V. \space if  \space u 与 v间有路，则称G连通. ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://cdn.jsdelivr.net/gh/cxw745/ImgBed/OIP-20240410105439-atjay57.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">cxw745</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">5</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://blog.csdn.net/m0_60947585?type=blog"><i class="fas fa-envelope"></i><span>Wechat：cxw745_</span></a></div><div class="sticky_layout"><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2025/01/"><span class="card-archive-list-date">一月 2025</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2024/04/"><span class="card-archive-list-date">四月 2024</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/10/"><span class="card-archive-list-date">十月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/09/"><span class="card-archive-list-date">九月 2023</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2023/05/"><span class="card-archive-list-date">五月 2023</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">5</div></div><div class="webinfo-item"><div class="item-name">已运行时间 :</div><div class="item-count" id="runtimeshow" data-publishDate="2024-04-10T00:00:00.000Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-05-13T05:16:40.321Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2024 - 2025 By cxw745</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(() => {
+  const $mermaid = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaid.length === 0) return
+  const runMermaid = () => {
+    window.loadMermaid = true
+    const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+    Array.from($mermaid).forEach((item, index) => {
+      const mermaidSrc = item.firstElementChild
+      const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+      const mermaidID = 'mermaid-' + index
+      const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+
+      const renderFn = mermaid.render(mermaidID, mermaidDefinition)
+
+      const renderV10 = () => {
+        renderFn.then(({svg}) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svg)
+        })
+      }
+
+      const renderV9 = svg => {
+        mermaidSrc.insertAdjacentHTML('afterend', svg)
+      }
+
+      typeof renderFn === 'string' ? renderV9(renderFn) : renderV10()
+    })
+  }
+
+  const loadMermaid = () => {
+    window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid@10.8.0/dist/mermaid.min.js').then(runMermaid)
+  }
+
+  btf.addGlobalFn('themeChange', runMermaid, 'mermaid')
+
+  window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+})()</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
